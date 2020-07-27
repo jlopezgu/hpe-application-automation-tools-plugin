@@ -154,14 +154,14 @@ public class RunFromFileSystemModel extends AbstractDescribableImpl<RunFromFileS
      * @param fsTests the fs tests
      */
     @DataBoundConstructor
-    public RunFromFileSystemModel(String fsTests) {
+    public RunFromFileSystemModel(String fsTests, String perScenarioTimeOut) {
         this.setFsTests(fsTests);
 
         //Init default vals
         this.fsTimeout = "";
         this.fsUftRunMode = fsUftRunModes.get(0).getValue();
         this.controllerPollingInterval = "30";
-        this.perScenarioTimeOut = "10";
+        this.perScenarioTimeOut = perScenarioTimeOut;
         this.ignoreErrorStrings = "";
         this.displayController = "false";
         this.analysisTemplate = "";

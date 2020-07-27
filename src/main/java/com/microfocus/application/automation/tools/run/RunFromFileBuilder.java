@@ -83,8 +83,9 @@ public class RunFromFileBuilder extends Builder implements SimpleBuildStep {
                               FileSystemTestSetModel fileSystemTestSetModel,
                               SummaryDataLogModel summaryDataLogModel,
                               ScriptRTSSetModel scriptRTSSetModel,
-                              UftSettingsModel uftSettingsModel) {
-        this.runFromFileModel = new RunFromFileSystemModel(fsTests);
+                              UftSettingsModel uftSettingsModel,
+                              String perScenarioTimeOut) {
+        this.runFromFileModel = new RunFromFileSystemModel(fsTests, perScenarioTimeOut);
         this.fileSystemTestSetModel = fileSystemTestSetModel;
         this.isParallelRunnerEnabled = isParallelRunnerEnabled;
         this.summaryDataLogModel = summaryDataLogModel;
@@ -102,8 +103,8 @@ public class RunFromFileBuilder extends Builder implements SimpleBuildStep {
      *
      * @param fsTests the fs tests
      */
-    public RunFromFileBuilder(String fsTests) {
-        runFromFileModel = new RunFromFileSystemModel(fsTests);
+    public RunFromFileBuilder(String fsTests, String perScenarioTimeout) {
+        runFromFileModel = new RunFromFileSystemModel(fsTests, perScenarioTimeout);
     }
 
     /**

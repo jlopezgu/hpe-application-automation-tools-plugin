@@ -330,7 +330,7 @@ public class TestExecutionJobCreatorService {
 
 			//add build action
 			Builder convertedBuilder = new TestsToRunConverterBuilder(TestsToRunFramework.MF_UFT.value());
-			Builder uftRunner = new RunFromFileBuilder("${testsToRunConverted}");
+			Builder uftRunner = new RunFromFileBuilder("${testsToRunConverted}", "30");
 			proj.getBuildersList().add(convertedBuilder);
 			proj.getBuildersList().add(uftRunner);
 

@@ -54,8 +54,8 @@ public class UftScenarioLoadStep extends AbstractStepImpl {
      * @param archiveTestResultsMode the type of archiving the user wants.
      */
     @DataBoundConstructor
-    public UftScenarioLoadStep(String testPaths, String archiveTestResultsMode) {
-        this.runFromFileBuilder = new RunFromFileBuilder(testPaths);
+    public UftScenarioLoadStep(String testPaths, String archiveTestResultsMode, String perScenarioTimeOut) {
+        this.runFromFileBuilder = new RunFromFileBuilder(testPaths, perScenarioTimeOut);
         this.runResultRecorder = new RunResultRecorder(archiveTestResultsMode);
     }
 
@@ -85,6 +85,25 @@ public class UftScenarioLoadStep extends AbstractStepImpl {
     @DataBoundSetter
     public void setFsTimeout(String fsTimeout) {
         runFromFileBuilder.setFsTimeout(fsTimeout);
+    }
+
+    /**
+     * Gets perScenarioTimeOut
+     *
+     * @return perScenarioTimeOut value
+     */
+    public String getPerScenarioTimeOut() {
+        return runFromFileBuilder.getRunFromFileModel().getPerScenarioTimeOut();
+    }
+
+    /**
+     * Sets perScenarioTime value
+     *
+     * @param perScenarioTimeOut the perScenarioTime value
+     */
+    @DataBoundSetter
+    public void setPerScenarioTimeOut(String perScenarioTimeOut) {
+        runFromFileBuilder.setPerScenarioTimeOut(perScenarioTimeOut);
     }
 
     @DataBoundSetter
@@ -234,6 +253,29 @@ public class UftScenarioLoadStep extends AbstractStepImpl {
          * @return the form validation
          */
         public FormValidation doCheckFsTimeout(@QueryParameter String value) {
+            if (StringUtils.isEmpty(value)) {
+                return FormValidation.ok();
+            }
+
+            String val1 = value.trim();
+            if (val1.length() > 0 && val1.charAt(0) == '-') {
+                val1 = val1.substring(1);
+            }
+
+            if (!StringUtils.isNumeric(val1) && !Objects.equals(val1, "")) {
+                return FormValidation.error("Timeout name must be a number");
+            }
+
+            return FormValidation.ok();
+        }
+
+        /**
+         * Do check perScenarioTimeOut validation
+         *
+         * @param value the value
+         * @return the form validation
+         */
+        public FormValidation doCheckPerScenarioTimeOut(@QueryParameter String value) {
             if (StringUtils.isEmpty(value)) {
                 return FormValidation.ok();
             }

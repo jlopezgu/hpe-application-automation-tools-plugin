@@ -51,5 +51,7 @@
             </j:forEach>
         </select>
     </f:entry>
-
+    <f:entry title="PerScenarioTimeOut" field="perScenarioTimeOut">
+        <f:textbox name="runPipeline.perScenarioTimeOut" value="${instance.perScenarioTimeOut}" default=""/>
+    </f:entry>
 </j:jelly>

@@ -55,8 +55,8 @@ public class LoadRunnerTestStep extends AbstractStepImpl {
      * @param archiveTestResultsMode the type of archiving the user wants.
      */
     @DataBoundConstructor
-    public LoadRunnerTestStep(String testPaths, String archiveTestResultsMode) {
-        this.runFromFileBuilder = new RunFromFileBuilder(testPaths);
+    public LoadRunnerTestStep(String testPaths, String archiveTestResultsMode, String perScenarioTimeOut) {
+        this.runFromFileBuilder = new RunFromFileBuilder(testPaths, perScenarioTimeOut);
         this.runResultRecorder = new RunResultRecorder(archiveTestResultsMode);
     }
 
