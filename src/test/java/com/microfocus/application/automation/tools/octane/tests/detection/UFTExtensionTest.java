@@ -58,7 +58,7 @@ public class UFTExtensionTest {
 	public void testMockOneBuilder() throws Exception {
 		String projectName = "root-job-" + UUID.randomUUID().toString();
 		FreeStyleProject project = rule.createFreeStyleProject(projectName);
-		project.getBuildersList().add(new RunFromFileBuilder("notExistingTest"));
+		project.getBuildersList().add(new RunFromFileBuilder("notExistingTest", "10"));
 
 		AbstractBuild buildMock = Mockito.mock(AbstractBuild.class);
 		Mockito.when(buildMock.getProject()).thenReturn(project);
@@ -87,7 +87,7 @@ public class UFTExtensionTest {
 	public void testFileBuilder() throws Exception {
 		String projectName = "root-job-" + UUID.randomUUID().toString();
 		FreeStyleProject project = rule.createFreeStyleProject(projectName);
-		project.getBuildersList().add(new RunFromFileBuilder(""));
+		project.getBuildersList().add(new RunFromFileBuilder("", "10"));
 
 		//UFT plugin will not find any test -> that will cause failing the scheduled build
 		//but as detection runs after completion of run, we are sure, that it did not fail because of detection service
@@ -105,7 +105,7 @@ public class UFTExtensionTest {
 		//TODO solve storing of example test
 		SubversionSCM scm = new SubversionSCM("http://localhost:8083/svn/selenium/branches/uft");
 		project.setScm(scm);
-		project.getBuildersList().add(new RunFromFileBuilder("Calculator"));
+		project.getBuildersList().add(new RunFromFileBuilder("Calculator", "10"));
 		project.getPublishersList().add(new JUnitResultArchiver("Results*.xml"));
 		//this will actually run the UFT test
 		AbstractBuild build = TestUtils.runAndCheckBuild(project);
